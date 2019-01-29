@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("GWT.LightBDD")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Given-When-Then Framework - LightBDD extension")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Lars Wuckel")]
 [assembly: AssemblyProduct("GWT.LightBDD")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
