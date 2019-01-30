@@ -9,6 +9,9 @@
 		<PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
