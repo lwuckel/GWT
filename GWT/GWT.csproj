@@ -2,11 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Lars Wuckel</Authors>
     <Company>Lars Wuckel</Company>
     <Description>Given-When-Then Framework</Description>
     <Copyright>Copyright ©  2019</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
