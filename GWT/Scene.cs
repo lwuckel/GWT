@@ -24,12 +24,13 @@ namespace GWT
 		{
 			givens.ToList()
 				.ForEach(b => b());
+
 			whens.ToList()
 				.ForEach(b => b());
+
 			thens.ToList()
 				.ForEach(b => b());
 		}
-
 
 		public bool PostProcessing = false;
 
@@ -42,9 +43,12 @@ namespace GWT
 			var list = new List<Action>();
 
 			AddTo(list, this.Givens);
+
 			var givensArray = list.ToArray();
+
 			list.Clear();
 			AddTo(list, this.Whens);
+
 			var whensArray = list.ToArray();
 			list.Clear();
 			AddTo(list, this.Thens);
@@ -68,10 +72,10 @@ namespace GWT
 		{
 			if (given != null)
 			{
-				if (!PostProcessing)
-					given();
-				else
+				if (PostProcessing)
 					AddToList(this.Givens, given, newList: true);
+				else
+					given();
 			}
 
 			return this;
@@ -84,10 +88,10 @@ namespace GWT
 		/// <returns>given object</returns>
 		public IGiven<Action> And(Action given)
 		{
-			if (!PostProcessing)
-				given();
-			else 
+			if (PostProcessing)
 				AddToList(this.Givens, given);
+			else
+				given();
 
 			return this;
 		}
@@ -107,20 +111,20 @@ namespace GWT
 		/// <returns>when-object</returns>
 		public IWhen<Action> When(Action when)
 		{
-			if (!PostProcessing)
-				when();
-			else
+			if (PostProcessing)
 				AddToList(this.Whens, when, newList: true);
+			else
+				when();
 
 			return this;
 		}
 
 		IWhen<Action> IWhen<Action>.And(Action when)
 		{
-			if (!PostProcessing)
-				when();
-			else
+			if (PostProcessing)
 				AddToList(this.Whens, when);
+			else
+				when();
 
 			return this;
 		}
@@ -132,19 +136,19 @@ namespace GWT
 		/// <returns>Then-object</returns>
 		public IThen<Action> Then(Action then)
 		{
-			if (!PostProcessing)
-				then();
-			else
+			if (PostProcessing)
 				AddToList(this.Thens, then, newList: true);
+			else
+				then();
 
 			return this;
 		}
 		IThen<Action> IThen<Action>.And(Action then)
 		{
-			if (!PostProcessing)
-				then();
-			else
+			if (PostProcessing)
 				AddToList(this.Thens, then);
+			else
+				then();
 
 			return this;
 		}
