@@ -24,4 +24,15 @@
     <ProjectReference Include="..\GWT\GWT.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Compile Update="Advanced_method_LightBDD_test.*.cs">
+			<DependentUpon>Advanced_method_LightBDD_test.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Advanced_method_NUnit3_test.*.cs">
+			<DependentUpon>Advanced_method_NUnit3_test.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Advanced_method_test.*.cs">
+			<DependentUpon>Advanced_method_test.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
 </Project>
