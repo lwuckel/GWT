@@ -22,14 +22,33 @@ namespace GWT
 
 		void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
-			givens.ToList()
-				.ForEach(b => b());
+			ProcessAction(givens);
+			ProcessAction(whens);
+			ProcessAction(thens);
+		}
 
-			whens.ToList()
-				.ForEach(b => b());
-
-			thens.ToList()
-				.ForEach(b => b());
+		private static void ProcessAction(Action[] actions)
+		{
+			actions.ToList()
+				.ForEach(b =>
+				{
+					string text = ActionTextBuilder.GetText(b);
+					Monitor.Instance.RaiseProcessing(text);
+					bool failed = false;
+					try
+					{
+						b();
+					}
+					catch
+					{
+						failed = true;
+						throw;
+					}
+					finally
+					{
+						Monitor.Instance.RaiseProcessed(text, failed);
+					}
+				});
 		}
 
 		public bool PostProcessing = false;
@@ -38,21 +57,19 @@ namespace GWT
 		List<List<Action>> Whens { get; } = new List<List<Action>>();
 		List<List<Action>> Thens { get; } = new List<List<Action>>();
 
-		public (Action[] givens,Action[] whens,Action[] thens) AllSteps()
+		Action[] GetArray(List<List<Action>> actions)
 		{
 			var list = new List<Action>();
 
-			AddTo(list, this.Givens);
+			AddTo(list, actions);
+			return list.ToArray();
+		}
 
-			var givensArray = list.ToArray();
-
-			list.Clear();
-			AddTo(list, this.Whens);
-
-			var whensArray = list.ToArray();
-			list.Clear();
-			AddTo(list, this.Thens);
-			var thensArray = list.ToArray();
+		public (Action[] givens,Action[] whens,Action[] thens) AllSteps()
+		{
+			var givensArray = GetArray(this.Givens);
+			var whensArray = GetArray(this.Whens);
+			var thensArray = GetArray(this.Thens);
 
 			return (givensArray, whensArray, thensArray);
 		}

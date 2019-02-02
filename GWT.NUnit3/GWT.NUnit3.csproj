@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net45;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45;net46</TargetFrameworks>
     <Authors>Lars Wuckel</Authors>
     <Description>Given-When-Then Framework - Nunit3 Extension</Description>
     <Copyright>Copyright ©  2019</Copyright>
