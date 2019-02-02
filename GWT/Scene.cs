@@ -22,33 +22,35 @@ namespace GWT
 
 		void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
-			ProcessAction(givens);
-			ProcessAction(whens);
-			ProcessAction(thens);
+			ProcessActions(givens);
+			ProcessActions(whens);
+			ProcessActions(thens);
 		}
 
-		private static void ProcessAction(Action[] actions)
+		private static void ProcessActions(Action[] actions)
 		{
 			actions.ToList()
-				.ForEach(b =>
-				{
-					string text = ActionTextBuilder.GetText(b);
-					Monitor.Instance.RaiseProcessing(text);
-					bool failed = false;
-					try
-					{
-						b();
-					}
-					catch
-					{
-						failed = true;
-						throw;
-					}
-					finally
-					{
-						Monitor.Instance.RaiseProcessed(text, failed);
-					}
-				});
+				.ForEach(b =>	ProcessAction(b));
+		}
+
+		private static void ProcessAction(Action b)
+		{
+			string text = ActionTextBuilder.GetText(b);
+			Monitor.Instance.RaiseProcessing(text);
+			bool failed = false;
+			try
+			{
+				b();
+			}
+			catch
+			{
+				failed = true;
+				throw;
+			}
+			finally
+			{
+				Monitor.Instance.RaiseProcessed(text, failed);
+			}
 		}
 
 		public bool PostProcessing = false;
@@ -92,7 +94,7 @@ namespace GWT
 				if (PostProcessing)
 					AddToList(this.Givens, given, newList: true);
 				else
-					given();
+					ProcessAction(given);
 			}
 
 			return this;
@@ -108,7 +110,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Givens, given);
 			else
-				given();
+				ProcessAction(given);
 
 			return this;
 		}
@@ -131,7 +133,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Whens, when, newList: true);
 			else
-				when();
+				ProcessAction(when);
 
 			return this;
 		}
@@ -141,7 +143,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Whens, when);
 			else
-				when();
+				ProcessAction(when);
 
 			return this;
 		}
@@ -156,7 +158,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Thens, then, newList: true);
 			else
-				then();
+				ProcessAction(then);
 
 			return this;
 		}
@@ -165,7 +167,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Thens, then);
 			else
-				then();
+				ProcessAction(then);
 
 			return this;
 		}
