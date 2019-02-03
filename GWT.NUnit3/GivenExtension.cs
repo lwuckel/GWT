@@ -11,22 +11,17 @@ namespace GWT.NUnit3
 	{
 		public static IGiven<Action> Given(this IGwtScene runner, Action action)
 		{
-			return new Scene(postProcessing: true
-				, process: Processing)
+			return new Scene(postProcessing: true, process: Processing)
 				.Given(action);
 		}
 
 		public static void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
-			Assert.Multiple(() =>
-			{
-				givens.ToList()
-					.ForEach(b => b());
-				whens.ToList()
-					.ForEach(b => b());
-				thens.ToList()
-					.ForEach(b => b());
-			});
+			//			Assert.Multiple(() =>	Scene.Processing(givens, whens, thens));
+			AssertAll.Execute(
+				() => Assert.Multiple(() => Scene.ProcessingGivens(givens)),
+			()=> Assert.Multiple(() => Scene.ProcessingWhens(whens))
+			,() => Assert.Multiple(() => Scene.ProcessingThens(thens)));
 		}
 	}
 }

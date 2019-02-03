@@ -10,89 +10,89 @@ namespace GWT.Tests
 	[TestFixture]
 	public class MonitorTests : IGwtScene
 	{
-		[Test]
-		public void Given_When_Then_Text_Monitoring_Processing()
-		{
-			var list = new List<(string,State)>();
-			Monitor.Instance.Processing += (text,state) => list.Add((text,state));
-
-			this.Given(Given)
-				.And(GivenAnd)
-				.When(When)
-				.And(WhenAnd)
-				.Then(Then)
-				.And(ThenAnd);
-
-			list.Should().HaveCount(6)
-				.And.ContainInOrder(new[] {
-					("Given",State.Given)
-				, ("GivenAnd",State.GivenAnd)
-				, ("When",State.When)
-				, ("WhenAnd",State.WhenAnd)
-				, ("Then",State.Then)
-				, ("ThenAnd",State.ThenAnd)
-				});
-		}
-
-		[Test]
-		public void Given_When_Then_Text_Monitoring_Processing_with_fail()
-		{
-			var list = new List<(string,State)>();
-			var exception = Assert.Throws<AssertionException>(() =>
+			[Test]
+			public void Given_When_Then_Text_Monitoring_Processing()
 			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
+				var list = new List<(string,State)>();
+				Monitor.Instance.Processing += (text,state) => list.Add((text,state));
 
-					Monitor.Instance.Processing += (text,state) => list.Add((text,state));
-					this.Given(Given)
-						.And(GivenAndFail)
-						.When(When)
-						.And(WhenAnd)
-						.Then(Then)
-						.And(ThenAnd);
-				}
-			});
-			exception.ResultState.Should().Be(ResultState.Failure);
+				this.Given(Given)
+					.And(GivenAnd)
+					.When(When)
+					.And(WhenAnd)
+					.Then(Then)
+					.And(ThenAnd);
 
-			list.Should().HaveCount(2)
-				.And.ContainInOrder(new[] {
-					("Given",State.Given)
-				,("GivenAndFail",State.GivenAnd)
-				});
-		}
+				list.Should().HaveCount(6)
+					.And.ContainInOrder(new[] {
+						("Given",State.Given)
+					, ("GivenAnd",State.GivenAnd)
+					, ("When",State.When)
+					, ("WhenAnd",State.WhenAnd)
+					, ("Then",State.Then)
+					, ("ThenAnd",State.ThenAnd)
+					});
+			}
 
-		[Test]
-		public void Given_When_Then_Text_Monitoring_Processed_with_fail()
-		{
-			var list = new List<(string,State,bool)>();
-			var exception = Assert.Throws<AssertionException>(() =>
+			[Test]
+			public void Given_When_Then_Text_Monitoring_Processing_with_fail()
 			{
-				using (new TestExecutionContext.IsolatedContext())
+				var list = new List<(string,State)>();
+				var exception = Assert.Throws<AssertionException>(() =>
 				{
-					Monitor.Instance.Processed += (text, state, b) => list.Add((text,state,b));
-					this.Given(Given)
-						.And(GivenAndFail)
-						.When(When)
-						.And(WhenAnd)
-						.Then(Then)
-						.And(ThenAnd);
-				}
-			});
-			exception.ResultState.Should().Be(ResultState.Failure);
+					using (new TestExecutionContext.IsolatedContext())
+					{
 
-			list.Should().HaveCount(2)
-				.And.ContainInOrder(new[] {
-					("Given", State.Given, false)
-				, ("GivenAndFail", State.GivenAnd,true)
+						Monitor.Instance.Processing += (text,state) => list.Add((text,state));
+						this.Given(Given)
+							.And(GivenAndFail)
+							.When(When)
+							.And(WhenAnd)
+							.Then(Then)
+							.And(ThenAnd);
+					}
 				});
-		}
+				exception.ResultState.Should().Be(ResultState.Failure);
 
-		void Given(){	}
-		void GivenAnd()	{	}
-		void GivenAndFail() { Assert.Fail(); }
-		void When()	{	}
-		void WhenAnd() { }
-		void Then() { }
-		void ThenAnd() { }
+				list.Should().HaveCount(2)
+					.And.ContainInOrder(new[] {
+						("Given",State.Given)
+					,("GivenAndFail",State.GivenAnd)
+					});
+			}
+
+			[Test]
+			public void Given_When_Then_Text_Monitoring_Processed_with_fail()
+			{
+				var list = new List<(string,State,bool)>();
+				var exception = Assert.Throws<AssertionException>(() =>
+				{
+					using (new TestExecutionContext.IsolatedContext())
+					{
+						Monitor.Instance.Processed += (text, state, b) => list.Add((text,state,b));
+						this.Given(Given)
+							.And(GivenAndFail)
+							.When(When)
+							.And(WhenAnd)
+							.Then(Then)
+							.And(ThenAnd);
+					}
+				});
+				exception.ResultState.Should().Be(ResultState.Failure);
+
+				list.Should().HaveCount(2)
+					.And.ContainInOrder(new[] {
+						("Given", State.Given, false)
+					, ("GivenAndFail", State.GivenAnd,true)
+					});
+			}
+
+			void Given(){	}
+			void GivenAnd()	{	}
+			void GivenAndFail() { Assert.Fail(); }
+			void When()	{	}
+			void WhenAnd() { }
+			void Then() { }
+			void ThenAnd() { }
 	}
 }
