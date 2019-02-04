@@ -9,12 +9,15 @@ namespace GWT
 	{
 		public static void ProcessActions(Action[] actions, State state, State andState)
 		{
-			actions.ToList()
-				.ForEach(b =>
-				{
-					Processor.ProcessAction(b, state);
-					state = andState;
-				});
+			//var actionList = 
+			(from action in actions
+			select new Action(() =>
+			{
+				Processor.ProcessAction(action, state);
+				state = andState;
+			})
+			).ToList()
+			.ForEach( a=> a() );
 		}
 
 		public static void ProcessAction(Action b, State state)

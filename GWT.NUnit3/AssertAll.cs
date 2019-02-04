@@ -28,8 +28,8 @@ namespace GWT.NUnit3
 				var separator = string.Format("{0}{0}", Environment.NewLine);
 				string errorMessageString = string.Join(separator, errorMessages);
 
-				Assert.Fail(string.Format("The following condtions failed:{0}{1}",
-										 Environment.NewLine, errorMessageString));
+				Assert.Fail($@"The following condtions failed:
+{errorMessageString}");
 			}
 		}
 	}

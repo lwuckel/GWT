@@ -19,9 +19,10 @@ namespace GWT.NUnit3
 		{
 			//			Assert.Multiple(() =>	Scene.Processing(givens, whens, thens));
 			AssertAll.Execute(
-				() => Assert.Multiple(() => Scene.ProcessingGivens(givens)),
-			()=> Assert.Multiple(() => Scene.ProcessingWhens(whens))
-			,() => Assert.Multiple(() => Scene.ProcessingThens(thens)));
+				() => AssertAll.Execute(() => SceneProcessor.ProcessingGivens(givens)),
+				() => AssertAll.Execute(() => SceneProcessor.ProcessingWhens(whens)),
+				() => AssertAll.Execute(() => SceneProcessor.ProcessingThens(thens))
+			);
 		}
 	}
 }
