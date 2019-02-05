@@ -16,18 +16,14 @@ namespace GWT.LightBDD
 	{
 		public static IGiven<Action> Given(this IGwtScene runner, Action action)
 		{
-			return new Scene(postProcessing: true
-				, process: null)
+			return new Scene(new SceneProcessor(), postProcessing: true)
 				.Given(action);
 		}
 
 		public static IGiven<Action> Given(this IBddRunner runner, Action given)
 		{
-			var scene = new Scene(postProcessing: true, tag: runner);
-			scene.Process = (givens, whens, thens) =>
-			{
-				scene.Run(givens, whens, thens);
-			};
+			var scene = new Scene(null, postProcessing: true, tag: runner);
+			scene.Processor = new SceneRunnerProcessor(scene);
 			return scene.Given(given);
 		}
 

@@ -10,14 +10,18 @@ namespace GWT
 	/// </summary>
 	public class Scene : IGiven<Action>, IWhen<Action>, IThen<Action>
 	{
-		public Scene(bool postProcessing=false, Action<Action[],Action[], Action[]> process = null, object tag = null)
+		public ISceneProcessor Processor { get; set; }
+
+		public Scene(
+			ISceneProcessor processor,
+			bool postProcessing=false, 
+			object tag = null)
 		{
 			this.PostProcessing = postProcessing;
-			this.Process = process ?? SceneProcessor.Processing;
+			this.Processor = processor;
 			this.Tag = tag;
 		}
 
-		public Action<Action[],Action[],Action[]> Process { get; set; }
 		public object Tag { get; private set; }
 		public bool PostProcessing = false;
 
@@ -60,7 +64,7 @@ namespace GWT
 				if (PostProcessing)
 					AddToList(this.Givens, given, newList: true);
 				else
-					SceneProcessor.ProcessingGiven(given);
+					this.Processor.ProcessingGiven(given);
 			}
 
 			return this;
@@ -76,7 +80,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Givens, given);
 			else
-				SceneProcessor.ProcessingGivenAnd(given);
+				this.Processor.ProcessingGivenAnd(given);
 
 			return this;
 		}
@@ -99,7 +103,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Whens, when, newList: true);
 			else
-				SceneProcessor.ProcessingWhen(when);
+				this.Processor.ProcessingWhen(when);
 
 			return this;
 		}
@@ -109,7 +113,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Whens, when);
 			else
-				SceneProcessor.ProcessingWhenAnd(when);
+				this.Processor.ProcessingWhenAnd(when);
 
 			return this;
 		}
@@ -124,7 +128,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Thens, then, newList: true);
 			else
-				SceneProcessor.ProcessingThen(then);
+				this.Processor.ProcessingThen(then);
 
 			return this;
 		}
@@ -133,7 +137,7 @@ namespace GWT
 			if (PostProcessing)
 				AddToList(this.Thens, then);
 			else
-				SceneProcessor.ProcessingThenAnd(then);
+				this.Processor.ProcessingThenAnd(then);
 
 			return this;
 		}

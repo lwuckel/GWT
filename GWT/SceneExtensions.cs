@@ -31,7 +31,7 @@ namespace GWT
 			if (processor != null)
 				processor(steps.givens,steps.whens,steps.thens);
 			else
-				scene.Process(steps.givens,steps.whens,steps.thens);
+				scene.Processor.Processing(steps.givens,steps.whens,steps.thens);
 		}
 	}
 }

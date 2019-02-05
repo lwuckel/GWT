@@ -35,7 +35,7 @@ namespace GWT.Simple
 
 			Instance = this;
 			PostProcessing = false;
-			Process = null;
+			Processor = null;
 		}
 
 		/// <summary>
@@ -52,12 +52,12 @@ namespace GWT.Simple
 		}
 
 		bool PostProcessing = false;
-		Action<Action[], Action[], Action[]> Process;
+		ISceneProcessor Processor;
 
-		public virtual SceneContext<TGiven, TWhen, TThen> EnablePostProcessing(Action<Action[], Action[], Action[]> process = null)
+		public virtual SceneContext<TGiven, TWhen, TThen> EnablePostProcessing(ISceneProcessor processor = null)
 		{
 			PostProcessing = true;
-			Process = process;
+			Processor = processor ?? new SceneProcessor();
 			return this;
 		}
 
@@ -81,7 +81,11 @@ namespace GWT.Simple
 				Instance.given = Instance.given.And(given);
 			else
 			{
-				Instance.given = new Scene(Instance.PostProcessing, Instance.Process, Instance.Tag)
+				Instance.given = new Scene(
+					Instance.Processor, 
+					Instance.PostProcessing,  
+					Instance.Tag
+				)
 					.Given(given);
 			}
 			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.whenContext);

@@ -4,53 +4,54 @@ using System.Text;
 
 namespace GWT
 {
-	public class SceneProcessor
+	public class SceneProcessor : ISceneProcessor
 	{
-		public static void Processing(Action[] givens, Action[] whens, Action[] thens)
+		IProcessor processor = new Processor();
+
+		public void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
 			ProcessingGivens(givens);
 			ProcessingWhens(whens);
 			ProcessingThens(thens);
 		}
 
-		public static void ProcessingGiven(Action given)
+		public void ProcessingGiven(Action given)
 		{
-			Processor.ProcessAction(given, State.Given);
+			this.processor.ProcessAction(given, State.Given);
 		}
-		public static void ProcessingGivenAnd(Action given)
+		public void ProcessingGivenAnd(Action given)
 		{
-			Processor.ProcessAction(given, State.GivenAnd);
+			this.processor.ProcessAction(given, State.GivenAnd);
 		}
-		public static void ProcessingWhen(Action when)
+		public void ProcessingWhen(Action when)
 		{
-			Processor.ProcessAction(when, State.When);
+			this.processor.ProcessAction(when, State.When);
 		}
-		public static void ProcessingWhenAnd(Action when)
+		public void ProcessingWhenAnd(Action when)
 		{
-			Processor.ProcessAction(when, State.WhenAnd);
+			this.processor.ProcessAction(when, State.WhenAnd);
 		}
-		public static void ProcessingThen(Action then)
+		public void ProcessingThen(Action then)
 		{
-			Processor.ProcessAction(then, State.Then);
+			this.processor.ProcessAction(then, State.Then);
 		}
-		public static void ProcessingThenAnd(Action then)
+		public void ProcessingThenAnd(Action then)
 		{
-			Processor.ProcessAction(then, State.ThenAnd);
+			this.processor.ProcessAction(then, State.ThenAnd);
 		}
-		public static void ProcessingGivens(Action[] givens)
+		public void ProcessingGivens(Action[] givens)
 		{
-			Processor.ProcessActions(givens, State.Given, State.GivenAnd);
-		}
-
-		public static void ProcessingWhens(Action[] whens)
-		{
-			Processor.ProcessActions(whens, State.When, State.WhenAnd);
+			this.processor.ProcessActions(givens, State.Given, State.GivenAnd);
 		}
 
-		public static void ProcessingThens(Action[] thens)
+		public void ProcessingWhens(Action[] whens)
 		{
-			Processor.ProcessActions(thens, State.Then, State.ThenAnd);
+			this.processor.ProcessActions(whens, State.When, State.WhenAnd);
 		}
 
+		public void ProcessingThens(Action[] thens)
+		{
+			this.processor.ProcessActions(thens, State.Then, State.ThenAnd);
+		}
 	}
 }

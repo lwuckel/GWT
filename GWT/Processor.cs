@@ -5,22 +5,22 @@ using System.Text;
 
 namespace GWT
 {
-	public class Processor
+	public class Processor : IProcessor
 	{
-		public static void ProcessActions(Action[] actions, State state, State andState)
+		public void ProcessActions(Action[] actions, State state, State andState)
 		{
 			//var actionList = 
 			(from action in actions
 			select new Action(() =>
 			{
-				Processor.ProcessAction(action, state);
+				ProcessAction(action, state);
 				state = andState;
 			})
 			).ToList()
 			.ForEach( a=> a() );
 		}
 
-		public static void ProcessAction(Action b, State state)
+		public void ProcessAction(Action b, State state)
 		{
 			string text = ActionTextBuilder.GetText(b);
 			Monitor.Instance.RaiseProcessing(text, state);

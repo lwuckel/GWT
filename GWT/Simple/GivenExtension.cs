@@ -10,7 +10,7 @@ namespace GWT.Simple
 	{
 		public static IGiven<Action> Given(this IGwtScene runner, Action given)
 		{
-			return new Scene()
+			return new Scene(new SceneProcessor())
 				.Given(given);
 		}
 	}
