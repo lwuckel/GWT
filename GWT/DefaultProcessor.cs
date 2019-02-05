@@ -6,19 +6,9 @@ namespace GWT
 {
 	public abstract class DefaultProcessor : ISceneProcessor
 	{
-
-		protected DefaultProcessor(Scene scene)
-		{
-			this.scene = scene;
-		}
-
-		protected readonly Scene scene;
-
-		public virtual void Processing(Action[] givens, Action[] whens, Action[] thens)
-		{
-		}
-
-		public ISceneProcessor Processor => this.scene.Processor;
+		public abstract void Processing(Action[] givens, Action[] whens, Action[] thens);
+	
+		public ISceneProcessor Processor => new SceneProcessor();
 
 		public void ProcessingGiven(Action given)
 		{
