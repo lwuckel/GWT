@@ -35,7 +35,7 @@ namespace GWT.Simple
 
 			Instance = this;
 			PostProcessing = false;
-			Processor = null;
+			Processor = new SceneProcessor(); 
 		}
 
 		/// <summary>
@@ -90,6 +90,7 @@ namespace GWT.Simple
 			}
 			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.whenContext);
 		}
+
 		/// <summary>
 		/// Create a WhenResult. 
 		/// Every When-method has to return such a WhenResult

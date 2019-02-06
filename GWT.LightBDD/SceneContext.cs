@@ -13,7 +13,7 @@ namespace GWT.LightBDD
 		{
 			this.Tag = bddRunner;
 
-			EnablePostProcessing(new SceneRunnerProcessor((Scene)given));
+			EnablePostProcessing(new SceneRunnerProcessor(()=>(Scene)given));
 		}
 	}
 }

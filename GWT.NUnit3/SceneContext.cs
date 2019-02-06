@@ -11,7 +11,7 @@ namespace GWT.NUnit3
 		public SceneContext(TGiven givenContext, TWhen whenContext, TThen thenContext) 
 			: base(givenContext, whenContext, thenContext)
 		{
-			EnablePostProcessing();
+			EnablePostProcessing(new AssertAllProcessor());
 		}
 	}
 }

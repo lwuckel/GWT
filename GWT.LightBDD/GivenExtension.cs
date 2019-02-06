@@ -23,7 +23,7 @@ namespace GWT.LightBDD
 		public static IGiven<Action> Given(this IBddRunner runner, Action given)
 		{
 			var scene = new Scene(null, postProcessing: true, tag: runner);
-			scene.Processor = new SceneRunnerProcessor(scene);
+			scene.Processor = new SceneRunnerProcessor(()=>scene);
 			return scene.Given(given);
 		}
 

@@ -4,16 +4,16 @@ namespace GWT.LightBDD
 {
 	public class SceneRunnerProcessor : DefaultProcessor
 	{
-		private readonly Scene scene;
+		private readonly Func<Scene> scene;
 
-		public SceneRunnerProcessor(Scene scene) 
+		public SceneRunnerProcessor(Func<Scene> scene) 
 		{
 			this.scene = scene;
 		}
 
 		public override void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
-			scene.Run(givens, whens, thens);
+			this.scene().Run(givens, whens, thens);
 		}
 	}
 }

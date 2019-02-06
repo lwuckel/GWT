@@ -8,9 +8,13 @@ namespace GWT.NUnit3
 {
 	public class AssertAll
 	{
-		public static void Execute(params Action[] assertionsToRun)
+		List<Exception> Exceptions
 		{
-			var errorMessages = new List<Exception>();
+			get;
+		} = new List<Exception>();
+
+		public void Execute(params Action[] assertionsToRun)
+		{
 			foreach (var action in assertionsToRun)
 			{
 				try
@@ -19,18 +23,14 @@ namespace GWT.NUnit3
 				}
 				catch (Exception exc)
 				{
-					errorMessages.Add(exc);
+					Exceptions.Add(exc);
 				}
 			}
+		}
 
-			if (errorMessages.Any())
-			{
-				var separator = string.Format("{0}{0}", Environment.NewLine);
-				string errorMessageString = string.Join(separator, errorMessages);
-
-				Assert.Fail($@"The following condtions failed:
-{errorMessageString}");
-			}
+		public void ThrowAsserts()
+		{
+			this.Exceptions.ForEach(e => throw e);
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace GWT.NUnit3
@@ -8,19 +9,44 @@ namespace GWT.NUnit3
 
 		public override void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
-			AssertAll.Execute(
-				() => AssertAll.Execute(() => Processing(givens, a => this.Processor.ProcessingGiven(a))),
-				() => AssertAll.Execute(() => Processing(whens, a => this.Processor.ProcessingWhen(a))),
-				() => AssertAll.Execute(() => Processing(thens, a => this.Processor.ProcessingThen(a)))
+			var assertAll = new AssertAll();
+			Processing(assertAll, givens, 
+				a => this.Processor.ProcessingGiven(a),
+				a => this.Processor.ProcessingGivenAnd(a)
 			);
+
+			Processing(assertAll, whens, 
+				a => this.Processor.ProcessingWhen(a),
+				a => this.Processor.ProcessingWhenAnd(a)
+			);
+
+			Processing(assertAll, thens, 
+				a => this.Processor.ProcessingThen(a),
+				a => this.Processor.ProcessingThenAnd(a)
+			);
+
+			Assert.Multiple(() =>	assertAll.ThrowAsserts());
 		}
 
-		void Processing(Action[] actions, Action<Action> process)
+		void Processing(
+			AssertAll assertAll, 
+			Action[] actions, 
+			Action<Action> process, 
+			Action<Action> processAnd
+		)
 		{
-			var list = (from action in actions
-									select new Action(() => process(action))
-								 ).ToList();
-			AssertAll.Execute(list.ToArray());
+			bool first = true;
+			actions.ToList()
+				.ForEach(action => assertAll.Execute(()=>
+				{
+					if (first)
+					{
+						first = false;
+						process(action);
+					}
+					else
+						processAnd(action);
+				}));
 		}
 	}
 }
