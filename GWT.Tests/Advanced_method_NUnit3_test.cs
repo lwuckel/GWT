@@ -29,7 +29,7 @@ namespace GWT.Tests
 				}
 			});
 
-	//		exception.TestResult.AssertionResults.Should().HaveCount(2);
+			exception.TestResult.AssertionResults.Should().HaveCount(2);
 			exception.TestResult.AssertionResults.Select(a => a.Status)
 						.Should()
 						.OnlyContain(x => x == AssertionStatus.Failed);
