@@ -1,16 +1,16 @@
 # GWT
-Given-When-Then
+Given-When-Then  
 Mit diesem Framework kann man Integrationstests definieren, die nach dem Given-When-Then Prinzip aufgebaut sind.
 
-Given - beinhaltet das Setup
-When - die Aktionen
-Then - die Tests
+Given - beinhaltet das Setup  
+When - die Aktionen  
+Then - die Tests  
 
 ## Anwendung
 
 ### Simple
 
-Die einfache Version löst bei einem Assert sofort aus.
+Die einfache Version löst bei einem Assert sofort aus. Die Klasse, die das Framework nutzen will muss das Interface IGwtScene implementieren.
 
 ```C#
 [TestFixture]
@@ -81,12 +81,14 @@ public class LightBDD_Scenarios : FeatureFixture, IGwtScene
 
 ### Komplexe Definitionen
 
-
+Beschreibung folgt.
 
 ## Ausgabe der Testergebnisse
 
 For die Ausgabe von Testergebnissen kann man die Monitor-Klasse verwenden. Folgendes Beispiel erzeugt eine Datei im Testverzeichnis und speichert die Testergebnisse dort hinein.
 
+
+```C#
 [TestFixture]
 public class Output : IGwtScene
 {
@@ -121,3 +123,4 @@ public class Output : IGwtScene
   void Then() { }
   void ThenAnd() { }
 }
+```
