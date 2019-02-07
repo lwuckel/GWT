@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GWT.Tests
 {
@@ -13,8 +14,8 @@ namespace GWT.Tests
 			[Test]
 			public void Given_When_Then_Text_Monitoring_Processing()
 			{
-				var list = new List<(string,State)>();
-				Monitor.Instance.Processing += (text,state) => list.Add((text,state));
+				var list = new List<MonitorArgs>();
+				Monitor.Instance.Processing += (args) => list.Add(args);
 
 				this.Given(Given)
 					.And(GivenAnd)
@@ -23,7 +24,10 @@ namespace GWT.Tests
 					.Then(Then)
 					.And(ThenAnd);
 
-				list.Should().HaveCount(6)
+			(from m in list
+			 select (m.Name, m.State)
+			)
+			.Should().HaveCount(6)
 					.And.ContainInOrder(new[] {
 						("Given",State.Given)
 					, ("GivenAnd",State.GivenAnd)
@@ -37,13 +41,13 @@ namespace GWT.Tests
 			[Test]
 			public void Given_When_Then_Text_Monitoring_Processing_with_fail()
 			{
-				var list = new List<(string,State)>();
+				var list = new List<MonitorArgs>();
+				Monitor.Instance.Processing += (args) => list.Add(args);
+
 				var exception = Assert.Throws<AssertionException>(() =>
 				{
 					using (new TestExecutionContext.IsolatedContext())
 					{
-
-						Monitor.Instance.Processing += (text,state) => list.Add((text,state));
 						this.Given(Given)
 							.And(GivenAndFail)
 							.When(When)
@@ -54,7 +58,10 @@ namespace GWT.Tests
 				});
 				exception.ResultState.Should().Be(ResultState.Failure);
 
-				list.Should().HaveCount(2)
+			(from m in list
+			 select (m.Name, m.State)
+			)
+			.Should().HaveCount(2)
 					.And.ContainInOrder(new[] {
 						("Given",State.Given)
 					,("GivenAndFail",State.GivenAnd)
@@ -64,12 +71,12 @@ namespace GWT.Tests
 			[Test]
 			public void Given_When_Then_Text_Monitoring_Processed_with_fail()
 			{
-				var list = new List<(string,State,bool)>();
+				var list = new List<MonitorArgs>();
 				var exception = Assert.Throws<AssertionException>(() =>
 				{
 					using (new TestExecutionContext.IsolatedContext())
 					{
-						Monitor.Instance.Processed += (text, state, b) => list.Add((text,state,b));
+						Monitor.Instance.Processed += (args) => list.Add(args);
 						this.Given(Given)
 							.And(GivenAndFail)
 							.When(When)
@@ -80,10 +87,14 @@ namespace GWT.Tests
 				});
 				exception.ResultState.Should().Be(ResultState.Failure);
 
-				list.Should().HaveCount(2)
-					.And.ContainInOrder(new[] {
-						("Given", State.Given, false)
-					, ("GivenAndFail", State.GivenAnd,true)
+			list.Should().HaveCount(2);
+			(from m in list
+			select (m.Name,m.State,m.Passed)
+			)
+			.Should()
+			.ContainInOrder(new[] {
+						("Given", State.Given, true)
+					, ("GivenAndFail", State.GivenAnd,false)
 					});
 			}
 

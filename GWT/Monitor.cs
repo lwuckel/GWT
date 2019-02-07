@@ -8,14 +8,30 @@ namespace GWT
 	{
 		public readonly static Monitor Instance = new Monitor();
 
-		public event Action<string, State> Processing;
-		public event Action<string, State, bool> Processed;
+		public event Action<MonitorArgs> Processing;
+		public event Action<MonitorArgs> Processed;
 
 		public void RaiseProcessing(string text, State state) => 
-			this.Processing?.Invoke(text,state);
-		public void RaiseProcessed(string text, State state, bool failed) => 
-			this.Processed?.Invoke(text,state,failed);
+			this.Processing?.Invoke(new MonitorArgs(text,state,null,true));
+		public void RaiseProcessed(string text, State state, Exception exception, bool passed) => 
+			this.Processed?.Invoke(new MonitorArgs(text,state,exception,passed));
 
+	}
+
+	public class MonitorArgs : EventArgs
+	{
+		public MonitorArgs(string name, State state, Exception exception, bool passed)
+		{
+			this.State = state;
+			this.Name = name;
+			this.Exception = exception;
+			this.Passed = passed;
+		}
+
+		public Exception Exception { get; }
+		public State State { get; }
+		public string Name { get; }
+		public bool Passed { get; }
 	}
 
 	public enum State

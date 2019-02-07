@@ -24,20 +24,23 @@ namespace GWT
 		{
 			string text = ActionTextBuilder.GetText(b);
 			Monitor.Instance.RaiseProcessing(text, state);
+			Exception exception = null;
 			bool failed = false;
+
 			try
 			{
 				b(); 
 			}
 			// AssertFailedException 
-			catch
+			catch(Exception ex)
 			{
+				exception = ex;
 				failed = true;
 				throw;
 			}
 			finally
 			{
-				Monitor.Instance.RaiseProcessed(text, state, failed);
+				Monitor.Instance.RaiseProcessed(text, state,exception, !failed);
 			}
 		}
 	}
