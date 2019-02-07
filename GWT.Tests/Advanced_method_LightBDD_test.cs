@@ -39,7 +39,7 @@ I want to login into system")] //feature description
 				}
 			});
 
-			Parameter.Counter.Should().Be(2);
+			Parameter.Counter.Should().Be(3);
 		}
 	}
 }

@@ -30,7 +30,7 @@ namespace GWT.NUnit3
 
 		public void ThrowAsserts()
 		{
-			this.Exceptions.ForEach(e => throw e);
+			this.Exceptions.ForEach(e => Assert.Fail(e.ToString()));
 		}
 	}
 }

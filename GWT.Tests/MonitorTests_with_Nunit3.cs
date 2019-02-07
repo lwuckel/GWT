@@ -43,7 +43,7 @@ namespace GWT.Tests
 		public void Given_When_Then_Text_Monitoring_Processing_with_fail()
 		{
 			var list = new List<(string, State)>();
-			var exception = Assert.Throws<AssertionException>(() =>
+			var exception = Assert.Throws<MultipleAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -74,7 +74,7 @@ namespace GWT.Tests
 		public void Given_When_Then_Text_Monitoring_Processed_with_fail()
 		{
 			var list = new List<(string, State, bool)>();
-			var exception = Assert.Throws<AssertionException>(() =>
+			var exception = Assert.Throws<MultipleAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -87,7 +87,7 @@ namespace GWT.Tests
 						.And(ThenAnd)
 						.Run();
 				}
-			});
+			});		
 			exception.ResultState.Should().Be(ResultState.Failure);
 
 			list.Should().HaveCount(6)

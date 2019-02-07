@@ -19,9 +19,9 @@ namespace GWT.Tests
 		[Test]
 		public void PostProcessing_should_fail_2_times()
 		{
-			this.counter = 0;
+			this.counter = 2;
 
-			var exception = Assert.Throws<AssertionException>(() =>
+			var exception = Assert.Throws<MultipleAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -34,13 +34,14 @@ namespace GWT.Tests
 				}
 			});
 
-			//exception.TestResult.AssertionResults.Should().HaveCount(2);
-			//exception.TestResult.AssertionResults.Select(a => a.Status)
-			//	.Should()
-			//	.OnlyContain(x => x == AssertionStatus.Failed);
+			this.counter.Should().Be(10);
+			exception.TestResult.AssertionResults.Should().HaveCount(2);
+			exception.TestResult.AssertionResults.Select(a => a.Status)
+				.Should()
+				.OnlyContain(x => x == AssertionStatus.Failed);
 		}
 
-		public void Counter() { ++this.counter; }
+		public void Counter() { this.counter*=2; }
 		public void ShouldFailed() { ++this.counter; Assert.Fail(); }
 	}
 }

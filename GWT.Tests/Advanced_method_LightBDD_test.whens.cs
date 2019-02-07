@@ -12,6 +12,7 @@ namespace GWT.Tests
 		class Whens {
 			void B_Implementation() {
 				++Parameter.Counter;
+				++Parameter.Counter;
 				Assert.Fail();
 			}
 			public WhenResult<Whens, Thens> B_Should_Fail => TestContext.CreateWhen(B_Implementation);

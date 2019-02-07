@@ -10,22 +10,24 @@ namespace GWT.NUnit3
 		public override void Processing(Action[] givens, Action[] whens, Action[] thens)
 		{
 			var assertAll = new AssertAll();
-			Processing(assertAll, givens, 
-				a => this.Processor.ProcessingGiven(a),
-				a => this.Processor.ProcessingGivenAnd(a)
-			);
 
-			Processing(assertAll, whens, 
+			Processing(assertAll, givens,
+			a => this.Processor.ProcessingGiven(a),
+			a => this.Processor.ProcessingGivenAnd(a)
+		);
+
+			Processing(assertAll, whens,
 				a => this.Processor.ProcessingWhen(a),
 				a => this.Processor.ProcessingWhenAnd(a)
 			);
 
-			Processing(assertAll, thens, 
+			Processing(assertAll, thens,
 				a => this.Processor.ProcessingThen(a),
 				a => this.Processor.ProcessingThenAnd(a)
 			);
 
-			Assert.Multiple(() =>	assertAll.ThrowAsserts());
+			// generate MultipleAssertException
+			Assert.Multiple(() => { });
 		}
 
 		void Processing(
