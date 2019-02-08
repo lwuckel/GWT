@@ -27,7 +27,7 @@ namespace GWT.NUnit3
 			);
 
 			// generate MultipleAssertException
-			Assert.Multiple(() => { });
+			Assert.Multiple(() => { assertAll.ThrowAsserts(); });
 		}
 
 		void Processing(

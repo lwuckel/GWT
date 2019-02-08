@@ -117,7 +117,7 @@ namespace GWT.Tests
 		void GivenAndFail() { Assert.Fail(); }
 		void When() { }
 		void WhenAnd() { }
-		void Then() { }
+		void Then()	{	}
 		void ThenAnd() { }
 	}
 }
