@@ -16,6 +16,9 @@ namespace GWT.Tests
 				Assert.Fail();
 
 			}
+
+			// Description for Monitor Output
+			[System.ComponentModel.Description("Description B")]
 			void B_Implementation2()
 			{
 				int a = 2;
