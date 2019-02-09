@@ -8,6 +8,9 @@ namespace GWT
 	{
 		public readonly static Monitor Instance = new Monitor();
 
+		public event Action TestBegin;
+		public event Action TestEnd;
+
 		public event Action<MonitorArgs> Processing;
 		public event Action<MonitorArgs> Processed;
 
@@ -15,7 +18,8 @@ namespace GWT
 			this.Processing?.Invoke(new MonitorArgs(text,state,null,true));
 		public void RaiseProcessed(string text, State state, Exception exception, bool passed) => 
 			this.Processed?.Invoke(new MonitorArgs(text,state,exception,passed));
-
+		public void RaiseTestBegin() => TestBegin?.Invoke();
+		public void RaiseTestEnd() => TestEnd?.Invoke();
 	}
 
 	public class MonitorArgs : EventArgs
