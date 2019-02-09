@@ -1,7 +1,7 @@
 # GWT
 Given-When-Then  
 
-This Framework can be used to define Integrationtests in the style of Given-When-Then definition.
+This framework can be used to define integration tests in the style of Given-When-Then definition.
 
 Given - setup  
 When - action  
@@ -9,11 +9,11 @@ Then - asserts
 
 ## Anwendung
 
-To use this Framework you have to implement [IGwtScene](https://github.com/lwuckel/GWT/blob/master/GWT/IGwtScene.cs).
+To use this framework you have to implement [IGwtScene](https://github.com/lwuckel/GWT/blob/master/GWT/IGwtScene.cs).
 
 ### Simple
 
-The simplest version fire every Assertion just when it happens. So only one Assert is shown.
+The simplest version fire every assertion just when it happens. So only one Assert is shown.
 
 ```C#
 [TestFixture]
