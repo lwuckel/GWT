@@ -25,8 +25,8 @@ public class Simple_Scenarios : IGwtScene
     this
       .Given(Counter)
       .When(Counter)
-      .Then(ShouldFailed) 
-      .And(ShouldFailed); // wird nicht mehr ausgeführt
+      .Then(ShouldFailed) // shown
+      .And(ShouldFailed); // is not shown
   }
 }
 ```
@@ -45,8 +45,8 @@ public class Simple_Scenarios_with_NUnit3 : IGwtScene
     this
       .Given(Counter)
       .When(Counter)
-      .Then(ShouldFailed)
-      .And(ShouldFailed) // wird auch ausgeführt
+      .Then(ShouldFailed) / shown 
+      .And(ShouldFailed) // shown
       .Run();
   }
 }
