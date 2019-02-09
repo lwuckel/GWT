@@ -7,7 +7,7 @@ Given - setup
 When - action  
 Then - asserts  
 
-## Anwendung
+## Description
 
 To use this framework you have to implement [IGwtScene](https://github.com/lwuckel/GWT/blob/master/GWT/IGwtScene.cs).
 
@@ -82,11 +82,11 @@ public class LightBDD_Scenarios : FeatureFixture, IGwtScene
 }
 ```
 
-### Komplexe Definitionen
+### Complex definition
 
 [Example](https://github.com/lwuckel/GWT/blob/master/GWT.Tests/Advanced_method_NUnit3_test.cs)
 
-## Ausgabe der Testergebnisse
+## Result output
 
 To generate an output you can use the [Monitor](https://github.com/lwuckel/GWT/blob/master/GWT/Monitor.cs) class.
 It's possible to write a Logfile for every step and result ([example](https://github.com/lwuckel/GWT/blob/master/GWT.Tests/MonitorLogFile.cs)).
