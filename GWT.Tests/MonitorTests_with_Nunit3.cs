@@ -62,6 +62,8 @@ namespace GWT.Tests
 				}
 			});
 
+			exception.Exceptions.Should().HaveCount(1);
+
 			(from m in list
 			 select (m.Name, m.State)
 			)
@@ -94,7 +96,9 @@ namespace GWT.Tests
 						.And(ThenAnd)
 						.Run();
 				}
-			});		
+			});
+
+			exception.Exceptions.Should().HaveCount(1);
 
 			(from m in list
 			 select (m.Name, m.State, m.Passed)

@@ -35,7 +35,7 @@ namespace GWT.Tests
 
 			exception.Exceptions.Should().HaveCount(3);
 			Console.WriteLine(exception);
-			//Parameter.Counter.Should().Be(4);
+			Parameter.Counter.Should().Be(4);
 		}
 	}
 }
