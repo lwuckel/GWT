@@ -8,9 +8,11 @@ Then - die Tests
 
 ## Anwendung
 
+Die Klasse, die das Framework nutzen will, muss das Interface IGwtScene implementieren.
+
 ### Simple
 
-Die einfache Version löst bei einem Assert sofort aus. Die Klasse, die das Framework nutzen will muss das Interface IGwtScene implementieren.
+Die einfache Version löst bei einem Assert sofort aus. 
 
 ```C#
 [TestFixture]
@@ -30,7 +32,7 @@ public class Simple_Scenarios : IGwtScene
 
 ### NUnit3
 
-Die NUnit3 Version kann führt immer alle Schritt aus.
+Die NUnit3 Version führt immer alle Schritt aus.
 
 ```C#
 [TestFixture]
@@ -85,7 +87,7 @@ Beschreibung folgt.
 
 ## Ausgabe der Testergebnisse
 
-For die Ausgabe von Testergebnissen kann man die Monitor-Klasse verwenden. Folgendes Beispiel erzeugt eine Datei im Testverzeichnis und speichert die Testergebnisse dort hinein.
+For die Ausgabe von Testergebnissen kann man die Monitor-Klasse verwenden. Folgendes Beispiel erzeugt eine Datei im Testverzeichnis und speichert die Testergebnisse dort.
 
 
 ```C#
@@ -124,3 +126,5 @@ public class Output : IGwtScene
   void ThenAnd() { }
 }
 ```
+
+[Beispiel für eine Logdatei](https://github.com/lwuckel/GWT/blob/master/GWT.Tests/MonitorLogFile.cs).
