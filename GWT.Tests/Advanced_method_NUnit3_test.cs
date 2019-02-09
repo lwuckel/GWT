@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GWT.NUnit3;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
@@ -13,28 +14,28 @@ namespace GWT.Tests
 	[TestFixture]
 	partial class Advanced_method_NUnit3_test
 	{
+		MonitorLogFile logFile = new MonitorLogFile();
+
 		[Test]
 		public void SceneContext_test()
 		{
-			var exception = Assert.Throws<MultipleAssertException>(() =>
+			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
 					new TestContext()
 						.Given.A
-						.When.B_Should_Fail
+						.When.B_Should_Fail2
+						.And.B_Should_Fail
 						.And.B_Should_Fail
 						.Then.C
 						.Run();
 				}
 			});
 
-			exception.TestResult.AssertionResults.Should().HaveCount(2);
-			exception.TestResult.AssertionResults.Select(a => a.Status)
-						.Should()
-						.OnlyContain(x => x == AssertionStatus.Failed);
-
-			Parameter.Counter.Should().Be(4);
+			exception.Exceptions.Should().HaveCount(3);
+			Console.WriteLine(exception);
+			//Parameter.Counter.Should().Be(4);
 		}
 	}
 }

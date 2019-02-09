@@ -2,8 +2,6 @@
 using System;
 using FluentAssertions;
 using GWT.NUnit3;
-using System.IO;
-using System.Diagnostics;
 using NUnit.Framework.Internal;
 using NUnit.Framework.Interfaces;
 using Moq;
@@ -13,43 +11,12 @@ namespace GWT.Tests
 	[TestFixture]
 	public class Monitor_output_into_logfile : IGwtScene
 	{
-		private string logfile;
-
-		public Monitor_output_into_logfile()
-		{
-			this.logfile = Path.Combine(TestContext.CurrentContext.TestDirectory, @"log.txt");
-			var stream = File.Create(logfile);
-			stream.Dispose();
-
-			Monitor.Instance.Processed += (args) =>
-				AddOutput($@"{ (args.Passed ? "PASSED" : "FAILED")} #{args.State}: {args.Name}
-{args.Exception.ToString()}
----------------------------");
-
-			Monitor.Instance.TestBegin += () => 
-			{
-				AddOutput($@"########################
-Scenario: {TestContext.CurrentContext.Test.ClassName}
-Begin: {TestContext.CurrentContext.Test.MethodName}");
-			};
-			Monitor.Instance.TestEnd += () =>
-			{
-				AddOutput($@"End: {TestContext.CurrentContext.Test.FullName}
-########################");
-				Process.Start(this.logfile);
-			};
-		}
-
-		void AddOutput(string message)
-		{
-			File.AppendAllText(logfile, message);
-			File.AppendAllText(logfile, Environment.NewLine);
-		}
+		MonitorLogFile logFile = new MonitorLogFile();
 
 		[Test, Explicit]
 		public void Generate_output_for_every_exception()
 		{
-			var exception = Assert.Throws<MultipleAssertException>(() =>
+			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -64,7 +31,7 @@ Begin: {TestContext.CurrentContext.Test.MethodName}");
 						.Run();
 				}
 			});
-			exception.ResultState.Should().Be(ResultState.Failure);
+			exception.Exceptions.Should().HaveCount(3);
 		}
 
 		void Given() { }
