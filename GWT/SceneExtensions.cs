@@ -38,6 +38,7 @@ namespace GWT
 			finally
 			{
 				Monitor.Instance.RaiseTestEnd();
+				Monitor.Reset();
 			}
 		}
 	}

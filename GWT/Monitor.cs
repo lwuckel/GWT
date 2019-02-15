@@ -6,7 +6,11 @@ namespace GWT
 {
 	public class Monitor
 	{
-		public readonly static Monitor Instance = new Monitor();
+		public static Monitor Instance
+		{
+			get;
+			private set;
+		}	= new Monitor();
 
 		public event Action TestBegin;
 		public event Action TestEnd;
@@ -20,6 +24,7 @@ namespace GWT
 			this.Processed?.Invoke(new MonitorArgs(text,state,exception,passed));
 		public void RaiseTestBegin() => TestBegin?.Invoke();
 		public void RaiseTestEnd() => TestEnd?.Invoke();
+		public static void Reset() => Instance = new Monitor();
 	}
 
 	public class MonitorArgs : EventArgs
