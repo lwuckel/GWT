@@ -48,7 +48,7 @@ namespace GWT.Tests
 			var list = new List<MonitorArgs>();
 			Monitor.Instance.Processing += (args) => list.Add(args);
 
-			var exception = Assert.Throws<MultipleAssertException>(() =>
+			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -61,7 +61,8 @@ namespace GWT.Tests
 						.Run();
 				}
 			});
-			exception.ResultState.Should().Be(ResultState.Failure);
+
+			exception.Exceptions.Should().HaveCount(1);
 
 			(from m in list
 			 select (m.Name, m.State)
@@ -83,7 +84,7 @@ namespace GWT.Tests
 			var list = new List<MonitorArgs>();
 			Monitor.Instance.Processed += (args) => list.Add(args);
 
-			var exception = Assert.Throws<MultipleAssertException>(() =>
+			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -95,8 +96,9 @@ namespace GWT.Tests
 						.And(ThenAnd)
 						.Run();
 				}
-			});		
-			exception.ResultState.Should().Be(ResultState.Failure);
+			});
+
+			exception.Exceptions.Should().HaveCount(1);
 
 			(from m in list
 			 select (m.Name, m.State, m.Passed)

@@ -21,7 +21,7 @@ namespace GWT.Tests
 		{
 			this.counter = 2;
 
-			var exception = Assert.Throws<MultipleAssertException>(() =>
+			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -35,13 +35,15 @@ namespace GWT.Tests
 			});
 
 			this.counter.Should().Be(10);
-			exception.TestResult.AssertionResults.Should().HaveCount(2);
-			exception.TestResult.AssertionResults.Select(a => a.Status)
-				.Should()
-				.OnlyContain(x => x == AssertionStatus.Failed);
+			exception.Exceptions.Should().HaveCount(2);
 		}
 
 		public void Counter() { this.counter*=2; }
-		public void ShouldFailed() { ++this.counter; Assert.Fail(); }
+		public void ShouldFailed()
+		{
+			++this.counter;
+			int a = 1;
+			a.Should().Be(2);
+		}
 	}
 }

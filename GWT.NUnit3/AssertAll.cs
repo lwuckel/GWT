@@ -30,13 +30,8 @@ namespace GWT.NUnit3
 
 		public void ThrowAsserts()
 		{
-			this.Exceptions
-				.ForEach(e =>
-			{
-				if (!(e is AssertionException))
-					Assert.Fail(e.ToString());
-			}
-			);
+			if (this.Exceptions.Count >0)
+				throw new GwtAssertException(this.Exceptions.ToArray());
 		}
 	}
 }

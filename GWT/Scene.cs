@@ -20,6 +20,8 @@ namespace GWT
 			this.PostProcessing = postProcessing;
 			this.Processor = processor;
 			this.Tag = tag;
+
+			Monitor.Instance.RaiseTestBegin();
 		}
 
 		public object Tag { get; private set; }
