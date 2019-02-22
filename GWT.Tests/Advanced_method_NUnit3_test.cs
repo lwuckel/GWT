@@ -19,10 +19,10 @@ namespace GWT.Tests
 		[Test]
 		public void SceneContext_test()
 		{
-			var exception = Assert.Throws<GwtAssertException>(() =>
-			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
+			//var exception = Assert.Throws<GwtAssertException>(() =>
+			//{
+			//	using (new TestExecutionContext.IsolatedContext())
+			//	{
 					new TestContext()
 						.Given.A
 						.When.B_Should_Fail2
@@ -30,12 +30,12 @@ namespace GWT.Tests
 						.And.B_Should_Fail
 						.Then.C
 						.Run();
-				}
-			});
+			//	}
+			//});
 
-			exception.Exceptions.Should().HaveCount(3);
-			Console.WriteLine(exception);
-			Parameter.Counter.Should().Be(4);
+			//exception.Exceptions.Should().HaveCount(3);
+			//Console.WriteLine(exception);
+			//Parameter.Counter.Should().Be(4);
 		}
 	}
 }
