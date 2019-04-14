@@ -34,6 +34,7 @@ namespace GWT.Simple
 			Init(givenContext, whenContext, thenContext);
 
 			Instance = this;
+            then = null;
 			PostProcessing = false;
 			Processor = new SceneProcessor(); 
 		}

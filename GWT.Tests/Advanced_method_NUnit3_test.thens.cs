@@ -9,7 +9,9 @@ namespace GWT.Tests
 	partial class Advanced_method_NUnit3_test
 	{
 		class Thens {
-			void C_Implementation() { ++Parameter.Counter; }
+			void C_Implementation() {
+                ++Parameter.Counter;
+            }
 			public ThenResult<Thens, Action> C => TestContext.CreateThen(C_Implementation);
 
 		}

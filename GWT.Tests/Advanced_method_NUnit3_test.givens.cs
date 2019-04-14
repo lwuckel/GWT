@@ -10,7 +10,9 @@ namespace GWT.Tests
 	{
 		class Givens
 		{
-			void A_Implementation() { ++Parameter.Counter;  }
+			void A_Implementation() {
+                ++Parameter.Counter;
+            }
 			public GivenResult<Givens, Whens> A => TestContext.CreateGiven(A_Implementation);
 		}
 	}
