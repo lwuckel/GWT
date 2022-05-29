@@ -33,9 +33,9 @@ namespace GWT.Simple
 			Init(givenContext, whenContext, thenContext);
 
 			Instance = this;
-            then = null;
-			PostProcessing = false;
-			Processor = new SceneProcessor(); 
+      this.then = null;
+			this.PostProcessing = false;
+			this.Processor = new SceneProcessor(); 
 		}
 
 		/// <summary>
@@ -56,10 +56,16 @@ namespace GWT.Simple
 		bool PostProcessing = false;
 		ISceneProcessor Processor;
 
+		public SceneContext<TGiven, TWhen, TThen> EnablePostProcessing<TProcessor>() where TProcessor : ISceneProcessor 
+		{
+			var processor = (TProcessor)Activator.CreateInstance(typeof(TProcessor));
+			return EnablePostProcessing(processor);
+		}
+
 		public virtual SceneContext<TGiven, TWhen, TThen> EnablePostProcessing(ISceneProcessor processor = null)
 		{
-			PostProcessing = true;
-			Processor = processor ?? new SceneProcessor();
+			this.PostProcessing = true;
+			this.Processor = processor ?? new SceneProcessor();
 			return this;
 		}
 
@@ -81,14 +87,16 @@ namespace GWT.Simple
 		{
 			Instance.given = !ExistStartGiven()
 				? CreateStartGiven(given)
-				: AddGiven(given);
+				: AddToGivens(given);
 
 			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.When);
 		}
 
-		private static IGiven<Action> AddGiven(Action given) => Instance.given.And(given);
+		private static IGiven<Action> AddToGivens(Action given) 
+			=> Instance.given.And(given);
 
-		private static bool ExistStartGiven() => Instance.given != null;
+		private static bool ExistStartGiven() 
+			=> Instance.given != null;
 
 		private static IGiven<Action> CreateStartGiven(Action given)
 		{
@@ -120,10 +128,8 @@ namespace GWT.Simple
 			return new WhenResult<TWhen, TThen>(Instance.When, Instance.thenContext);
 		}
 
-		private static bool ExistStartWhen()
-		{
-			return Instance.when != null;
-		}
+		private static bool ExistStartWhen() 
+			=> Instance.when != null;
 
 		/// <summary>
 		/// Create a ThenResult. 
@@ -133,13 +139,15 @@ namespace GWT.Simple
 		/// <returns>ThenResult</returns>
 		public static ThenResult<TThen,Action> CreateThen(Action then)
 		{
-			if (Instance.then == null)
-				Instance.then = Instance.when.Then(then);
-			else
-				Instance.then = Instance.then.And(then);
+			Instance.then = ExistStartThen() 
+				? Instance.then.And(then) 
+				: Instance.when.Then(then);
 
-			return new ThenResult<TThen,Action>(Instance.thenContext);
+			return new ThenResult<TThen, Action>(Instance.thenContext);
 		}
+
+		private static bool ExistStartThen() 
+			=> Instance.then != null;
 
 		/// <summary>
 		/// First Given call.
