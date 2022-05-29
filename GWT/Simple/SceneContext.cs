@@ -79,18 +79,27 @@ namespace GWT.Simple
 		/// <returns>GivenResult</returns>
 		public static GivenResult<TGiven, TWhen> CreateGiven(Action given)
 		{
-			if (Instance.given != null)
-				Instance.given = Instance.given.And(given);
-			else
-			{
-				Instance.given = new Scene(
-					Instance.Processor, 
-					Instance.PostProcessing,  
-					Instance.Tag
-				)
-					.Given(given);
-			}
+			Instance.given = !ExistStartGiven()
+				? CreateStartGiven(given)
+				: AddGiven(given);
+
 			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.When);
+		}
+
+		private static IGiven<Action> AddGiven(Action given) => Instance.given.And(given);
+
+		private static bool ExistStartGiven() => Instance.given != null;
+
+		private static IGiven<Action> CreateStartGiven(Action given)
+		{
+			var scene = new Scene(
+				Instance.Processor,
+				Instance.PostProcessing,
+				Instance.Tag
+			);
+			
+			var startGiven = scene.Given(given);
+			return startGiven;
 		}
 
 		/// <summary>
@@ -101,12 +110,19 @@ namespace GWT.Simple
 		/// <returns>WhenResult</returns>
 		public static WhenResult<TWhen, TThen> CreateWhen(Action when)
 		{
-			if (Instance.when == null)
-				Instance.when = Instance.given.When(when);
-			else
-				Instance.when = Instance.when.And(when);
+			if (!ExistStartGiven())
+				Instance.given = CreateStartGiven(() => { });
+
+			Instance.when = ExistStartWhen() 
+				? Instance.when.And(when) 
+				: Instance.given.When(when);
 
 			return new WhenResult<TWhen, TThen>(Instance.When, Instance.thenContext);
+		}
+
+		private static bool ExistStartWhen()
+		{
+			return Instance.when != null;
 		}
 
 		/// <summary>
