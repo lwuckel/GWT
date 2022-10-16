@@ -16,7 +16,6 @@ namespace GWT.Simple
 	/// <typeparam name="Action">Func to return the first Given-object</typeparam>
 	public class SceneContext<TGiven,TWhen,TThen>
 	{
-		TWhen whenContext;
 		TThen thenContext;
 		protected object Tag=null;
 
@@ -48,7 +47,9 @@ namespace GWT.Simple
 		protected void Init(TGiven givenContext, TWhen whenContext, TThen thenContext)
 		{
 			this.thenContext = thenContext;
-			this.whenContext = whenContext;
+
+			// Startmöglichkeiten
+			this.When = whenContext;
 			this.Given = givenContext;
 		}
 
@@ -89,7 +90,7 @@ namespace GWT.Simple
 				)
 					.Given(given);
 			}
-			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.whenContext);
+			return new GivenResult<TGiven, TWhen>(Instance.Given, Instance.When);
 		}
 
 		/// <summary>
@@ -105,7 +106,7 @@ namespace GWT.Simple
 			else
 				Instance.when = Instance.when.And(when);
 
-			return new WhenResult<TWhen, TThen>(Instance.whenContext, Instance.thenContext);
+			return new WhenResult<TWhen, TThen>(Instance.When, Instance.thenContext);
 		}
 
 		/// <summary>
@@ -128,5 +129,6 @@ namespace GWT.Simple
 		/// First Given call.
 		/// </summary>
 		public TGiven Given { get; private set; }
+		public TWhen When { get; private set; }
 	}
 }

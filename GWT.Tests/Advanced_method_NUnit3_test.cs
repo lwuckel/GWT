@@ -37,7 +37,27 @@ namespace GWT.Tests
 			Console.WriteLine(exception);
 			Parameter.Counter.Should().Be(4);
 		}
-        [Test]
+		[Test]
+		public void SceneContext_test_When()
+		{
+			var exception = Assert.Throws<GwtAssertException>(() =>
+			{
+				using (new TestExecutionContext.IsolatedContext())
+				{
+					new TestContext()
+						.When.B_Should_Fail2
+						.And.B_Should_Fail
+						.And.B_Should_Fail
+						.Then.C
+						.Run();
+				}
+			});
+
+			exception.Exceptions.Should().HaveCount(3);
+			Console.WriteLine(exception);
+			Parameter.Counter.Should().Be(4);
+		}
+		[Test]
         public void SceneContext2_test()
         {
             var exception = Assert.Throws<GwtAssertException>(() =>
@@ -60,3 +80,4 @@ namespace GWT.Tests
         }
     }
 }
+	

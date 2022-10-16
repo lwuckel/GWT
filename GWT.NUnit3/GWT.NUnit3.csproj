@@ -16,11 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\signkey.pfx" Link="signkey.pfx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
   <ItemGroup>
