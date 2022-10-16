@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace GWT.Simple
@@ -76,6 +77,10 @@ namespace GWT.Simple
 			get => ThenResult<TThen, Action>.then;
 			set => ThenResult<TThen, Action>.then = value;
 		}
+
+		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario) 
+			=> CreateGiven(() => Run(scenario));
+
 
 		/// <summary>
 		/// Create a GivenResult. 
@@ -154,5 +159,11 @@ namespace GWT.Simple
 		/// </summary>
 		public TGiven Given { get; private set; }
 		public TWhen When { get; private set; }
+
+		public void Run(Func<SceneContext<TGiven,TWhen,TThen>,ThenResult<TThen,Action>> context) 
+		{
+			context(this)
+				.Run();
+		}
 	}
 }
