@@ -1,13 +1,8 @@
 ﻿using FluentAssertions;
 using GWT.NUnit3;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GWT.Tests
 {
@@ -19,44 +14,51 @@ namespace GWT.Tests
 		[Test]
 		public void SceneContext_test()
 		{
+			var properties = new TestProperties();
 			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
-					new TestContext()
-						.Given.A
-						.When.B_Should_Fail2
-						.And.B_Should_Fail
-						.And.B_Should_Fail
-						.Then.C
-						.Run();
-				}
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioA);
 			});
 
-			exception.Exceptions.Should().HaveCount(3);
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
 			Console.WriteLine(exception);
-			Parameter.Counter.Should().Be(4);
+			properties.Counter.Should().Be(4);
 		}
-        [Test]
-        public void SceneContext2_test()
-        {
-            var exception = Assert.Throws<GwtAssertException>(() =>
-            {
-                using (new TestExecutionContext.IsolatedContext())
-                {
-                    new TestContext()
-                        .Given.A
-                        .When.B_Should_Fail2
-                        .And.B_Should_Fail
-                        .And.B_Should_Fail
-                        .Then.C
-                        .Run();
-                }
-            });
 
-            exception.Exceptions.Should().HaveCount(3);
-            Console.WriteLine(exception);
-            Parameter.Counter.Should().Be(4);
-        }
-    }
+
+		[Test]
+		public void SceneContext_test_When()
+		{
+			var properties = new TestProperties();
+			var exception = Assert.Throws<GwtAssertException>(() =>
+			{
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioB);
+			});
+
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
+			Console.WriteLine(exception);
+			properties.Counter.Should().Be(3);
+		}
+
+
+		[Test]
+		public void SceneContext2_test()
+		{
+			var properties = new TestProperties();
+			var exception = Assert.Throws<GwtAssertException>(() =>
+			{
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioC);
+			});
+
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
+			Console.WriteLine(exception);
+			properties.Counter.Should().Be(4);
+		}
+	}
 }

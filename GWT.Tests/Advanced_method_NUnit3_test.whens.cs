@@ -11,8 +11,15 @@ namespace GWT.Tests
 	partial class Advanced_method_NUnit3_test
 	{
 		class Whens {
+			private TestProperties testProperties;
+
+			public Whens(TestProperties testProperties)
+			{
+				this.testProperties = testProperties;
+			}
+
 			void B_Implementation() {
-				++Parameter.Counter;
+				++this.testProperties.Counter;
 				Assert.Fail();
 
 			}

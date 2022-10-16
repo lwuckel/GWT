@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
     <Authors>Lars Wuckel</Authors>
     <Description>Given-When-Then Framework - Nunit3 Extension</Description>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright ©  2022</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>
@@ -12,15 +12,11 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
-    <Version>1.2.2</Version>
+    <Version>1.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\signkey.pfx" Link="signkey.pfx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
   <ItemGroup>

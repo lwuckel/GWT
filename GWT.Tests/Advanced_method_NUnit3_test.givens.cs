@@ -1,8 +1,10 @@
-﻿using System;
+﻿using GWT.Simple;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GWT.Tests.StaticContext;
 
 namespace GWT.Tests
 {
@@ -10,10 +12,20 @@ namespace GWT.Tests
 	{
 		class Givens
 		{
-			void A_Implementation() {
-                ++Parameter.Counter;
-            }
-			public GivenResult<Givens, Whens> A => TestContext.CreateGiven(A_Implementation);
+			private TestProperties testProperties;
+
+			public Givens(TestProperties testProperties)
+			{
+				this.testProperties = testProperties;
+			}
+
+			void A_Implementation()
+			{
+				++this.testProperties.Counter;
+			}
+
+			public GivenResult<Givens, Whens> A 
+				=> TestContext.CreateGiven(A_Implementation);
 		}
 	}
 }

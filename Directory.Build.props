@@ -1,0 +1,7 @@
+<Project>
+ <PropertyGroup>
+   <Deterministic>true</Deterministic>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+ </PropertyGroup>
+</Project>
