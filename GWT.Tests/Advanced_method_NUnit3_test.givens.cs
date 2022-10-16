@@ -12,9 +12,16 @@ namespace GWT.Tests
 	{
 		class Givens
 		{
+			private TestProperties testProperties;
+
+			public Givens(TestProperties testProperties)
+			{
+				this.testProperties = testProperties;
+			}
+
 			void A_Implementation()
 			{
-				++Parameter.Counter;
+				++this.testProperties.Counter;
 			}
 
 			public GivenResult<Givens, Whens> A 

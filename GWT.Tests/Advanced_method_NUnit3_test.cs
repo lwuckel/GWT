@@ -14,53 +14,51 @@ namespace GWT.Tests
 		[Test]
 		public void SceneContext_test()
 		{
+			var properties = new TestProperties();
 			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
-					new TestContext()
-						.Run(ScenarioA);
-				}
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioA);
 			});
 
-			exception.Exceptions.Should().HaveCount(3);
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
 			Console.WriteLine(exception);
-			Parameter.Counter.Should().Be(4);
+			properties.Counter.Should().Be(4);
 		}
 
 
 		[Test]
 		public void SceneContext_test_When()
 		{
+			var properties = new TestProperties();
 			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
-					new TestContext().Run(ScenarioB);
-				}
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioB);
 			});
 
-			exception.Exceptions.Should().HaveCount(3);
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
 			Console.WriteLine(exception);
-			Parameter.Counter.Should().Be(3);
+			properties.Counter.Should().Be(3);
 		}
 
 
 		[Test]
 		public void SceneContext2_test()
 		{
+			var properties = new TestProperties();
 			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
-				using (new TestExecutionContext.IsolatedContext())
-				{
-					new TestContext().Run(ScenarioC);
-				}
+				using var _ = new TestExecutionContext.IsolatedContext();
+				TestContext.Create(properties).Run(ScenarioC);
 			});
 
-			exception.Exceptions.Should().HaveCount(3);
+			exception.Should().NotBeNull();
+			exception?.Exceptions.Should().HaveCount(3);
 			Console.WriteLine(exception);
-			Parameter.Counter.Should().Be(4);
+			properties.Counter.Should().Be(4);
 		}
 	}
 }
-	
