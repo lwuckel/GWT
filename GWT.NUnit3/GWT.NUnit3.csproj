@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net48</TargetFrameworks>
     <Authors>Lars Wuckel</Authors>
     <Description>Given-When-Then Framework - Nunit3 Extension</Description>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright ©  2022</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>

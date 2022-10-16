@@ -6,7 +6,7 @@
     <Authors>Lars Wuckel</Authors>
     <Company>Lars Wuckel</Company>
     <Description>Given-When-Then Framework</Description>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright ©  2022</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
     <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>
