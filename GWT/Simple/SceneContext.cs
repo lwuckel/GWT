@@ -78,8 +78,11 @@ namespace GWT.Simple
 			set => ThenResult<TThen, Action>.then = value;
 		}
 
-		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario) 
-			=> CreateGiven(() => Run(scenario));
+		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario)
+		{
+			scenario(this);
+			return CreateGiven(() => { });
+		}
 
 
 		/// <summary>

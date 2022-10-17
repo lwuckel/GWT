@@ -24,7 +24,7 @@ namespace GWT.Tests
 				++this.testProperties.Counter;
 			}
 
-			public GivenResult<Givens, Whens> A 
+			public GivenResult<Givens, Whens> Add_1_to_counter 
 				=> TestContext.CreateGiven(A_Implementation);
 		}
 	}
