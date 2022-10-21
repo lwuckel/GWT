@@ -38,7 +38,7 @@ Then.Add_1_to_counter;
 
 		private ThenResult<Thens, Action> ScenarioD(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 
-			// counter = 4; fail 3
+			// counter = 4; fail 3 => 1 Exception
 			GivenScenario(ScenarioA).
 
 			When.Fail_2_should_be_3.

@@ -31,8 +31,13 @@ namespace GWT.Tests
 				int a = 2;
 				a.Should().Be(3);
 			}
+
+			void _Empty()
+			{
+			}
 			public WhenResult<Whens, Thens> Add_1_to_counter_and_fail => TestContext.CreateWhen(B_Implementation);
 			public WhenResult<Whens, Thens> Fail_2_should_be_3 => TestContext.CreateWhen(B_Implementation2);
+			public WhenResult<Whens, Thens> Empty => TestContext.CreateWhen(_Empty);
 
 		}
 	}

@@ -80,8 +80,24 @@ namespace GWT.Simple
 
 		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario)
 		{
-			scenario(this);
-			return CreateGiven(() => { });
+			Exception exception = null;
+			try
+			{
+				scenario(this).Run();
+			}
+			catch (Exception ex) 
+			{
+				exception = ex;
+			}
+			this.given = null;
+			this.when = null;
+			this.then = null;
+
+			return CreateGiven(() => 
+			{
+				if (exception != null)
+					throw exception;
+			});
 		}
 
 

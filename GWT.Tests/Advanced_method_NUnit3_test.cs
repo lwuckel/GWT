@@ -72,7 +72,7 @@ namespace GWT.Tests
 			});
 
 			exception.Should().NotBeNull();
-			exception?.Exceptions.Should().HaveCount(4);
+			exception?.Exceptions.Should().HaveCount(2);
 			Console.WriteLine(exception);
 			properties.Counter.Should().Be(5);
 		}
