@@ -78,7 +78,7 @@ namespace GWT.Simple
 			set => ThenResult<TThen, Action>.then = value;
 		}
 
-		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario)
+		public GivenResult<TGiven, TWhen> GivenScenario(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> scenario, [System.Runtime.CompilerServices.CallerMemberName] string methodName = "")
 		{
 			Exception exception = null;
 			try
@@ -87,7 +87,7 @@ namespace GWT.Simple
 			}
 			catch (Exception ex) 
 			{
-				exception = ex;
+				exception = new SceneException("GivenScenario " + methodName, ex);
 			}
 			this.given = null;
 			this.when = null;
