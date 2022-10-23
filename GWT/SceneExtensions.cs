@@ -34,6 +34,8 @@ namespace GWT
 					processor(steps.givens, steps.whens, steps.thens);
 				else
 					scene.Processor.Processing(steps.givens, steps.whens, steps.thens);
+
+				scene.Clear();
 			}
 			finally
 			{

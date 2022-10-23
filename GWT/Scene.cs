@@ -48,6 +48,13 @@ namespace GWT
 			return (givensArray, whensArray, thensArray);
 		}
 
+		public void Clear() 
+		{
+			this.Givens.Clear();
+			this.Whens.Clear();
+			this.Thens.Clear();
+		}
+
 		private void AddTo(List<Action> list, List<List<Action>> childList)
 		{
 			foreach (var item in childList)

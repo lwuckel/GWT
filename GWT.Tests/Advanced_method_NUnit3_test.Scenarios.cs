@@ -10,40 +10,39 @@ namespace GWT.Tests
 	{
 		ThenResult<Thens, Action> ScenarioA(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 
-Given.A.
+Given.Add_1_to_counter.
 
-When.B_Should_Fail2.
-And.B_Should_Fail.
-And.B_Should_Fail.
+When.Fail_2_should_be_3.
+And.Add_1_to_counter_and_fail.
+And.Add_1_to_counter_and_fail.
 
-Then.C;
+Then.Add_1_to_counter;
 
 
 		private ThenResult<Thens, Action> ScenarioB(Simple.SceneContext<Givens, Whens, Thens> context) => context
 		.
-When.B_Should_Fail2.
-And.B_Should_Fail.
-And.B_Should_Fail.
+When.Fail_2_should_be_3.
+And.Add_1_to_counter_and_fail.
+And.Add_1_to_counter_and_fail.
 
-Then.C;
+Then.Add_1_to_counter;
 
 		private ThenResult<Thens, Action> ScenarioC(Simple.SceneContext<Givens, Whens, Thens> context) => context.
-			Given.A.
+			Given.Add_1_to_counter.
 
-			When.B_Should_Fail2.
-			And.B_Should_Fail.
-			And.B_Should_Fail.
+			When.Fail_2_should_be_3.
+			And.Add_1_to_counter_and_fail.
+			And.Add_1_to_counter_and_fail.
 
-			Then.C;
+			Then.Add_1_to_counter;
 
 		private ThenResult<Thens, Action> ScenarioD(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 
+			// counter = 4; fail 3 => 1 Exception
 			GivenScenario(ScenarioA).
 
-			When.B_Should_Fail2.
-			And.B_Should_Fail.
-			And.B_Should_Fail.
+			When.Fail_2_should_be_3.
 
-			Then.C;
+			Then.Add_1_to_counter;
 	}
 }
