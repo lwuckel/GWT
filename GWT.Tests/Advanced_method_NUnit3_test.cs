@@ -65,16 +65,19 @@ namespace GWT.Tests
 		public void SceneContextD_test()
 		{
 			var properties = new TestProperties();
+			var testContext = TestContext.Create(properties);
+
 			var exception = Assert.Throws<GwtAssertException>(() =>
 			{
 				using var _ = new TestExecutionContext.IsolatedContext();
-				TestContext.Create(properties).Run(ScenarioD);
+				testContext.Run(ScenarioD);
 			});
 
 			exception.Should().NotBeNull();
 			exception?.Exceptions.Should().HaveCount(2);
 			Console.WriteLine(exception);
 			properties.Counter.Should().Be(5);
+			testContext.IsDisposed.Should().BeTrue();
 		}
 
 	}

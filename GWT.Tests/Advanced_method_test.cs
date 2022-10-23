@@ -16,11 +16,12 @@ namespace GWT.Tests
 		[Test]
 		public void SceneContext_test()
 		{
+			TestContext testContext = new TestContext();
 			var exception = Assert.Throws<AssertionException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
-					new TestContext()
+					testContext
 						.Given.A
 						.When.B_Should_Fail
 						.And.B_Should_Fail
@@ -32,6 +33,7 @@ namespace GWT.Tests
 			exception.ResultState.Should().Be(ResultState.Failure);
 
 			Parameter.Counter.Should().Be(2);
+			testContext.IsDisposed.Should().BeTrue();
 		}
 	}
 }
