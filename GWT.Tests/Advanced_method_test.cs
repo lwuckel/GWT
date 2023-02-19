@@ -21,12 +21,11 @@ namespace GWT.Tests
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
-					testContext
+					testContext.Run( scenario => scenario
 						.Given.A
 						.When.B_Should_Fail
 						.And.B_Should_Fail
-						.Then.C
-						.Run();
+						.Then.C);
 				}
 			});
 

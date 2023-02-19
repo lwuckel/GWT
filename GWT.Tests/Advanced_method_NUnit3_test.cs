@@ -59,6 +59,7 @@ namespace GWT.Tests
 			exception.Should().NotBeNull();
 			Console.WriteLine(exception);
 			properties.Counter.Should().Be(1);
+			testContext.IsDisposed.Should().BeTrue();
 		}
 
 	}

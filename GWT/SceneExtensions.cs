@@ -24,9 +24,19 @@ namespace GWT
 		/// <see cref="Scene{TAction}"/>
 		/// </summary>
 		/// <param name="then">Then-object</param>
-		public static void Run(this IThen<Action> then, Action<Action[], Action[], Action[]> processor = null)
+		public static void Run<TThen>(this IThen<TThen> then, Action<Action[], Action[], Action[]> processor = null)
 		{
 			var scene = (Scene)then;
+			scene.Run(processor);
+		}
+
+		/// <summary>
+		/// Run the definition of the Scene
+		/// <see cref="Scene{TAction}"/>
+		/// </summary>
+		/// <param name="then">Then-object</param>
+		public static void Run(this Scene scene, Action<Action[], Action[], Action[]> processor = null)
+		{
 			try
 			{
 				var steps = scene.AllSteps();

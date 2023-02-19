@@ -179,10 +179,18 @@ namespace GWT.Simple
 		public TGiven Given { get; private set; }
 		public TWhen When { get; private set; }
 
-		public void Run(Func<SceneContext<TGiven,TWhen,TThen>,ThenResult<TThen,Action>> context) 
+		public void Run(Func<SceneContext<TGiven, TWhen, TThen>, ThenResult<TThen, Action>> context)
 		{
-			context(this)
-				.Run();
+			try
+			{
+				var c = context(this);
+				c.Run();
+			}
+			finally
+			{
+				if (this is IDisposable disposable)
+					disposable.Dispose();
+			}
 		}
 	}
 }
