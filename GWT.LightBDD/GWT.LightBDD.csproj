@@ -4,15 +4,20 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Authors>Lars Wuckel</Authors>
     <Description>Given-When-Then Framework - LightBDD Extension</Description>
-    <Copyright>Copyright ©  2022</Copyright>
+    <Copyright>Copyright © 2023</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/lwuckel/GWT</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/lwuckel/GWT.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\GWT\README.md" Link="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LightBDD.Core" Version="3.6.1" />
