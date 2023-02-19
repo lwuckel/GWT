@@ -1,4 +1,4 @@
-﻿using GWT.Simple;
+﻿using GWT.NUnit3;
 using System;
 using System.Collections.Generic;
 using System.Linq;

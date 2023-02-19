@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GWT.Simple;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -41,9 +42,6 @@ namespace GWT
 				Monitor.Reset();
 
 				scene.Clear();
-
-				if (scene is IDisposable disposable)
-					disposable.Dispose();
 			}
 		}
 	}

@@ -8,40 +8,28 @@ namespace GWT.Tests
 {
 	partial class Advanced_method_NUnit3_test
 	{
-		ThenResult<Thens, Action> ScenarioA(Simple.SceneContext<Givens, Whens, Thens> context) => context.
+		ThenResult<Thens, Action> ScenarioFailTwoTimes(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 
-Given.Add_1_to_counter.
-
-When.Fail_2_should_be_3.
-And.Add_1_to_counter_and_fail.
-And.Add_1_to_counter_and_fail.
-
-Then.Add_1_to_counter;
-
-
-		private ThenResult<Thens, Action> ScenarioB(Simple.SceneContext<Givens, Whens, Thens> context) => context
-		.
-When.Fail_2_should_be_3.
-And.Add_1_to_counter_and_fail.
-And.Add_1_to_counter_and_fail.
-
-Then.Add_1_to_counter;
-
-		private ThenResult<Thens, Action> ScenarioC(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 			Given.Add_1_to_counter.
 
-			When.Fail_2_should_be_3.
-			And.Add_1_to_counter_and_fail.
-			And.Add_1_to_counter_and_fail.
+			When.BAction.
 
-			Then.Add_1_to_counter;
+			Then.ItFail.
+			And.ItFail;
 
-		private ThenResult<Thens, Action> ScenarioD(Simple.SceneContext<Givens, Whens, Thens> context) => context.
+
+		private ThenResult<Thens, Action> ScenarioThrowExceptionInWhen(Simple.SceneContext<Givens, Whens, Thens> context) => context
+		.
+When.ThrowException.
+
+Then.Add_1_to_counter;
+
+		private ThenResult<Thens, Action> Scenario_GivenSceneFailed(Simple.SceneContext<Givens, Whens, Thens> context) => context.
 
 			// counter = 4; fail 3 => 1 Exception
-			GivenScenario(ScenarioA).
+			GivenScenario(ScenarioFailTwoTimes).
 
-			When.Fail_2_should_be_3.
+			When.BAction.
 
 			Then.Add_1_to_counter;
 	}

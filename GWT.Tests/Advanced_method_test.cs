@@ -33,7 +33,6 @@ namespace GWT.Tests
 			exception.ResultState.Should().Be(ResultState.Failure);
 
 			Parameter.Counter.Should().Be(2);
-			testContext.IsDisposed.Should().BeTrue();
 		}
 	}
 }
