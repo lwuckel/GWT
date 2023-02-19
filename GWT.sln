@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GWT", "GWT\GWT.csproj", "{B69D60C8-1D87-494C-948E-D91F722EE152}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GWT.LightBDD", "GWT.LightBDD\GWT.LightBDD.csproj", "{4FDD8A87-FA8E-4217-A776-E42A4B74F636}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GWT.Tests", "GWT.Tests\GWT.Tests.csproj", "{3C1AF33D-F884-414E-9CA8-6C2F13A35BB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GWT.Examples", "GWT.Examples\GWT.Examples.csproj", "{92F7139C-AD56-439A-B813-8529649E09BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{3C1AF33D-F884-414E-9CA8-6C2F13A35BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C1AF33D-F884-414E-9CA8-6C2F13A35BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1AF33D-F884-414E-9CA8-6C2F13A35BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92F7139C-AD56-439A-B813-8529649E09BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92F7139C-AD56-439A-B813-8529649E09BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92F7139C-AD56-439A-B813-8529649E09BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92F7139C-AD56-439A-B813-8529649E09BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

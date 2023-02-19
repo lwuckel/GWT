@@ -13,7 +13,7 @@ namespace GWT.NUnit3
 			get;
 		} = new List<Exception>();
 
-		public void Execute(params Action[] assertionsToRun)
+		public void Execute(bool collectExceptions, params Action[] assertionsToRun)
 		{
 			foreach (var action in assertionsToRun)
 			{
@@ -23,7 +23,10 @@ namespace GWT.NUnit3
 				}
 				catch (Exception exc)
 				{
-					Exceptions.Add(exc);
+					if (collectExceptions)
+						Exceptions.Add(exc);
+					else
+						throw;
 				}
 			}
 		}

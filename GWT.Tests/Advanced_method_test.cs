@@ -16,16 +16,16 @@ namespace GWT.Tests
 		[Test]
 		public void SceneContext_test()
 		{
+			TestContext testContext = new TestContext();
 			var exception = Assert.Throws<AssertionException>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
-					new TestContext()
+					testContext.Run( scenario => scenario
 						.Given.A
 						.When.B_Should_Fail
 						.And.B_Should_Fail
-						.Then.C
-						.Run();
+						.Then.C);
 				}
 			});
 

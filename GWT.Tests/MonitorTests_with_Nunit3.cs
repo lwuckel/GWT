@@ -48,7 +48,7 @@ namespace GWT.Tests
 			var list = new List<MonitorArgs>();
 			Monitor.Instance.Processing += (args) => list.Add(args);
 
-			var exception = Assert.Throws<GwtAssertException>(() =>
+			var exception = Assert.Throws<Exception>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -62,19 +62,13 @@ namespace GWT.Tests
 				}
 			});
 
-			exception.Exceptions.Should().HaveCount(1);
-
 			(from m in list
 			 select (m.Name, m.State)
 			)
-			.Should().HaveCount(6)
+			.Should().HaveCount(2)
 				.And.ContainInOrder(new[] {
 					("Given",State.Given)
 				, ("GivenAndFail",State.GivenAnd)
-				, ("When",State.When)
-				, ("WhenAnd",State.WhenAnd)
-				, ("Then",State.Then)
-				, ("ThenAnd",State.ThenAnd)
 				});
 		}
 
@@ -84,7 +78,7 @@ namespace GWT.Tests
 			var list = new List<MonitorArgs>();
 			Monitor.Instance.Processed += (args) => list.Add(args);
 
-			var exception = Assert.Throws<GwtAssertException>(() =>
+			var exception = Assert.Throws<Exception>(() =>
 			{
 				using (new TestExecutionContext.IsolatedContext())
 				{
@@ -98,25 +92,19 @@ namespace GWT.Tests
 				}
 			});
 
-			exception.Exceptions.Should().HaveCount(1);
-
 			(from m in list
 			 select (m.Name, m.State, m.Passed)
 			)
-			.Should().HaveCount(6)
+			.Should().HaveCount(2)
 				.And.ContainInOrder(new[] {
 					("Given", State.Given, true)
 				, ("GivenAndFail", State.GivenAnd,false)
-				, ("When",State.When,true)
-				, ("WhenAnd",State.WhenAnd,true)
-				, ("Then",State.Then,true)
-				, ("ThenAnd",State.ThenAnd,true)
 				});
 		}
 
 		void Given() { }
 		void GivenAnd() { }
-		void GivenAndFail() { Assert.Fail(); }
+		void GivenAndFail() { throw new Exception("Given fail"); }
 		void When() { }
 		void WhenAnd() { }
 		void Then()	{	}

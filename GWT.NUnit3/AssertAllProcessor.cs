@@ -12,18 +12,21 @@ namespace GWT.NUnit3
 			var assertAll = new AssertAll();
 
 			Processing(assertAll, givens,
-			a => this.Processor.ProcessingGiven(a),
-			a => this.Processor.ProcessingGivenAnd(a)
-		);
+				a => this.Processor.ProcessingGiven(a),
+				a => this.Processor.ProcessingGivenAnd(a),
+				collectExceptions: false
+			);
 
 			Processing(assertAll, whens,
 				a => this.Processor.ProcessingWhen(a),
-				a => this.Processor.ProcessingWhenAnd(a)
+				a => this.Processor.ProcessingWhenAnd(a),
+				collectExceptions: false
 			);
 
 			Processing(assertAll, thens,
 				a => this.Processor.ProcessingThen(a),
-				a => this.Processor.ProcessingThenAnd(a)
+				a => this.Processor.ProcessingThenAnd(a),
+				collectExceptions: true
 			);
 
 			assertAll.ThrowAsserts(); 
@@ -33,12 +36,13 @@ namespace GWT.NUnit3
 			AssertAll assertAll, 
 			Action[] actions, 
 			Action<Action> process, 
-			Action<Action> processAnd
+			Action<Action> processAnd,
+			bool collectExceptions
 		)
 		{
 			bool first = true;
 			actions.ToList()
-				.ForEach(action => assertAll.Execute(()=>
+				.ForEach(action => assertAll.Execute(collectExceptions , ()=>
 				{
 					if (first)
 					{
